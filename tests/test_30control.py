@@ -4,7 +4,9 @@ import pytest
 import testinfra
 import subprocess
 import psycopg2
-
+import shutil
+import time
+import os
 
 @pytest.fixture(scope='module')
 def host(docker_compose, request):
@@ -67,10 +69,13 @@ def test_config_loaded():
     pass
 
 
-@pytest.mark.skip(reason="Wait userlist reload in config-reload.py")
-def test_userlist_reload():
-    with open("./tests/environment/userlist/userlist.txt", "a") as f:
+def test_userlist_reload(host):
+    shutil.copy('./tests/userlist/userlist.txt', './tests/userlist/userlist.txt.bkp')
+    with open("./tests/userlist/userlist.txt", "a") as f:
         f.write("\"test2\" \"qwerty\"\n")
+    with open("./tests/userlist/..data", "w+") as f:
+        f.write("Hello word")
+    time.sleep(11)
 
     test_conn = psycopg2.connect(
                     user='test2',
@@ -87,4 +92,13 @@ def test_userlist_reload():
     record = test_cur.fetchall()
     test_cur.close()
     test_conn.close()
+    shutil.copy('./tests/userlist/userlist.txt.bkp', './tests/userlist/userlist.txt')
+    os.remove('./tests/userlist/userlist.txt.bkp')
+    os.remove("./tests/userlist/..data")
     assert record[0] == (1,)
+
+    pid = host.process.get(pid=1)
+    assert pid.args == ("{pgbouncer-confi} /usr/local/bin/python "
+                        "/usr/local/bin/pgbouncer-config-reload -vv")
+
+

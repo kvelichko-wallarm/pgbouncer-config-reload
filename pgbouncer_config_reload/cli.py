@@ -16,7 +16,6 @@ import time
 
 __author__ = "kvelichko"
 __email__ = "kvelichko@wallarm.com"
-__version__ = "1.0.0"
 
 
 log = logging.getLogger('configmap-reload')
@@ -109,7 +108,7 @@ def run(args={}):
             args.pgbouncer_user,
             args.pgbouncer_password,
             args.pgbouncer_database,
-            args.pgbouncer_reload_timeout
+            int(args.pgbouncer_reload_timeout)
         )
 
     # notifier

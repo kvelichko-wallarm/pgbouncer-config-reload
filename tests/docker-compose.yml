@@ -31,4 +31,5 @@ services:
       PGBOUNCER_PORT: 5432
       PGBOUNCER_USER: admin
       PGBOUNCER_PASSWORD: xaod4yeeS5ohsh7chaesh0Quichauv8o
+      PGBOUNCER_RELOAD_TIMEOUT: 10
       LOG_JSON: 1

@@ -9,7 +9,7 @@ if sys.version_info.major < 3:
 with open('README.md') as file:
     long_description = file.read()
 
-version = os.getenv('TRAVIS_TAG', "1.0.0rc0")
+version = '1.0.1'
 
 setup(
   name             = 'pgbouncer-config-reload',
