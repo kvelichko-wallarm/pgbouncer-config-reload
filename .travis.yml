@@ -8,7 +8,6 @@ services:
 env:
   COMPOSE_VERSION: 1.21.2
   COMPOSE_FILE: tests/docker-compose.yml
-  DOCKER_REPOSITORY: kvelichkowallarm 
 
 before_install:
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
