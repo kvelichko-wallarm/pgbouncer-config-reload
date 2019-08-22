@@ -13,7 +13,7 @@ USER=${PGBOUNCER_USER:-admin}
 DATABASE=${PGBOUNCER_DATABASE:-pgbouncer}
 
 
-CMD="psql -h $PGBOUNCER_HOST -p $PGBOUNCER_PORT -U $PGBOUNCER_USER -d $PGBOUNCER_DATABASE"
+CMD="psql -h $HOST -p $PORT -U $USER -d $DATABASE"
 if [ $# -eq 0 ]; then
   PGPASSWORD=$PGBOUNCER_PASSWORD $CMD
 elif [ "$1" = "-h" ]; then
